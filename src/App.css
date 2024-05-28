@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+body{
+  background-color: #61dafb;
+}
+.App{
+  .obj{
+    color: blue;
+  }
+}
+.Home{
+  .obj{
+    color: rgb(10, 10, 12);
+  }
+}
