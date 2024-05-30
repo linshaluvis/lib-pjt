@@ -1,107 +1,125 @@
 import React, { useState } from 'react';
-import './signup.css';
-import user_icon from '../Assets/email.png';
-import email_icon from '../Assets/person.png';
-import password_icon from '../Assets/password.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './signup.css'; // Import the CSS file for styling
 import Loginnavbar from '../loginnavbar/loginnavbar'; 
 
 
-
-
-const Signup = () => {
-  const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
-    username: '',
-    email: '',
-    password: ''
-  });
-
+function MemberReg() {
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
+  const [number, setNumber] = useState('');
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [img, setImg] = useState(null);
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleImageChange = (e) => {
+    setImg(e.target.files[0]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post('http://127.0.0.1:8000/register', formData)
-      .then(response => {
-        console.log(response.data);
-        navigate('/login');
-      })
-      .catch(error => {
-        console.error('There was an error registering the user!', error);
+    const formData = new FormData();
+    formData.append('user.first_name', fname);
+    formData.append('user.last_name', lname);
+    formData.append('user.username', username);
+    formData.append('user.email', email);
+    formData.append('user.password', password);
+    formData.append('number', number);
+    formData.append('image', img);
+
+    try {
+      const res = await axios.post('http://127.0.0.1:8000/memberreg/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
+      if (res.status === 201) {
+        alert('Successfully registered, please wait for admin approval');
+        navigate('/login');  // Redirect to the home page or any other page
+      }
+    } catch (err) {
+      console.error('Error registering member:', err);
+      alert('Failed to register member');
+    }
   };
 
   return (
-    <div className="Container">
-            <Loginnavbar/>
-
-      <div className="Header">
-        <div className="text">SIGN UP</div>
-        <div className="underline"></div>
-      </div>
-      <form className="inputs" onSubmit={handleSubmit}>
-        <div className="input">
-          <img src={user_icon} alt="" />
+    <div className="Home">
+    <Loginnavbar/>
+     <br />
+    <div className="member-reg-container">
+      <h2>Register New Member</h2>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <div>
+          <label htmlFor="fname">First Name:</label>
           <input
             type="text"
-            name="firstname"
-            placeholder="Firstname"
-            value={formData.firstname}
-            onChange={handleChange}
+            id="fname"
+            value={fname}
+            onChange={(e) => setFname(e.target.value)}
           />
         </div>
-        <div className="input">
-          <img src={user_icon} alt="" />
+        <div>
+          <label htmlFor="lname">Last Name:</label>
           <input
             type="text"
-            name="lastname"
-            placeholder="Lastname"
-            value={formData.lastname}
-            onChange={handleChange}
+            id="lname"
+            value={lname}
+            onChange={(e) => setLname(e.target.value)}
           />
         </div>
-        <div className="input">
-          <img src={user_icon} alt="" />
+        <div>
+          <label htmlFor="username">Username:</label>
           <input
             type="text"
-            name="username"
-            placeholder="Username"
-            value={formData.username}
-            onChange={handleChange}
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
-        <div className="input">
-          <img src={email_icon} alt="" />
+        <div>
+          <label htmlFor="email">Email:</label>
           <input
             type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="input">
-          <img src={password_icon} alt="" />
+        <div>
+          <label htmlFor="password">Password:</label>
           <input
             type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="submit-container">
-          <button className="submit" type="submit">Sign Up</button>
+        <div>
+          <label htmlFor="number">Contact Number:</label>
+          <input
+            type="text"
+            id="number"
+            value={number}
+            onChange={(e) => setNumber(e.target.value)}
+          />
         </div>
+        <div>
+          <label htmlFor="img">Profile Image:</label>
+          <input
+            type="file"
+            id="img"
+            onChange={handleImageChange}
+          />
+        </div>
+        <button type="submit">Register</button>
       </form>
     </div>
+    </div>
   );
-};
+}
 
-export default Signup;
+export default MemberReg;

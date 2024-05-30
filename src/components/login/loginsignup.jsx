@@ -29,8 +29,15 @@ function LoginSignup() {
       };
       axios.post('http://127.0.0.1:8000/loginview', data, headers)
         .then((res) => {
+          const responseData = res.data;
+          console.log(responseData)
           console.log(res.data);
-          navigate('/signup'); // Navigate to home page on successful login
+          if (responseData.role === 'admin') {
+            navigate('/adminhome'); // Redirect to admin panel
+          } else {
+            navigate('/userhome'); // Redirect to user page
+          }
+
         })
         .catch((err) => {
           console.log(err);
@@ -47,8 +54,8 @@ function LoginSignup() {
        <br />
       <div className="Container">
         <div className="Header">
-          <div className="text">LOGIN</div>
-          <div className="underline"></div>
+          <div className="text text-danger text-center"><h1>LOGIN</h1></div>
+          <div className="underline text-danger text-center"></div>
         </div>
         <div className="inputs">
           <div className="input">
@@ -65,7 +72,7 @@ function LoginSignup() {
             <button className="submit" onClick={handlesubmit}>LOGIN</button>
           </div>
         </div>
-        <button onClick={handlecreateaccount} className="btn btn-default border w-5 bg-light rounded-0">Create Account</button>
+        <button onClick={handlecreateaccount} className="btn border w-100   bg-primary rounded-0">Create Account</button>
       </div>
     </div>
   );

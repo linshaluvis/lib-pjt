@@ -23,6 +23,10 @@
     height: 6px;
     background: #a912b131;
     color: #4c00b4;
+    align-items: center;
+    margin-left: 260px;
+
+
 }
 .text{
     color: #42144631;
@@ -77,6 +81,7 @@
     font-weight: 700;
     cursor: pointer;
 }
+
 .gray{
     background: #eaeaea;
     color: #676767;

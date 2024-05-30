@@ -4,6 +4,10 @@ import Signup from './components/signup/signup';
 import LoginSignup from './components/login/loginsignup';
 import ADMINHome from './components/adminhome/adminhome';
 import UserHome from './components/user/userhome';
+import AddCategory from './components/catagory/catagory';
+import AddBook from './components/book/bookadd';
+import MemberReg from './components/signup/signup';
+
 
 
 
@@ -28,6 +32,12 @@ function App() {
       
       <Route path="/adminhome" element={<ADMINHome />} />
       <Route path="/userhome" element={<UserHome />} />
+      <Route path="/add_category" element={<AddCategory />} />
+      <Route path="/addbook" element={<AddBook />} />
+      <Route path="/memberreg" element={<MemberReg />} />
+
+
+
 
 
 

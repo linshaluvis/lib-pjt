@@ -6,9 +6,31 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import './usernavbar.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 
 function OffcanvasExample() {
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+          const res = await axios.post('http://127.0.0.1:8000/logout/', {}, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          if (res.data.status === 'success') {
+            localStorage.removeItem('token');
+            navigate('/login');  // Redirect to the base1 page after logout
+          } else {
+            console.error('Logout failed:', res.data.message);
+          }
+        } catch (err) {
+          console.error('An error occurred during logout:', err);
+        }
+      };
   return (
     <>
       {[false].map((expand) => (
@@ -47,7 +69,7 @@ function OffcanvasExample() {
                     Overdue
                     </NavDropdown.Item>
                   </NavDropdown>
-                  <Nav.Link href="#action2">Log Out</Nav.Link>
+                  <Nav.Link onClick={handleLogout}>Log Out</Nav.Link>
 
                 </Nav>
                 
