@@ -53,8 +53,8 @@ function OffcanvasExample() {
                   <Nav.Link href="#action2">Notifications</Nav.Link>
                   <Nav.Link href="/addbook">Add Book</Nav.Link>
                   <Nav.Link href="/add_category">Add Category</Nav.Link>
-                  <Nav.Link href="#action1">Book Details</Nav.Link>
-                  <Nav.Link href="#action2">Members</Nav.Link>
+                  <Nav.Link href="/showbook">Book Details</Nav.Link>
+                  <Nav.Link href="/Showmember">Members</Nav.Link>
                   <NavDropdown
                     title="Book Details"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}

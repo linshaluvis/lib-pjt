@@ -25,7 +25,7 @@ function AddCategory() {
       });
       if (res.status === 201) {
         alert('Category created successfully');
-        navigate('/add_category');  // Redirect to the admin panel or any other page
+        navigate('/showbook');  // Redirect to the admin panel or any other page
       }
     } catch (err) {
       console.error('Error creating category:', err);

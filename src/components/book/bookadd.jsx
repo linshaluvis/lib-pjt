@@ -61,7 +61,8 @@ function AddBook() {
       console.log(res.status)
       if (res.status === 201) {
         alert('Book added successfully');
-        navigate('/addbook');  // Redirect to the admin panel or any other page
+        
+        navigate('/showbook');  // Redirect to the admin panel or any other page
       }
     } catch (err) {
       console.error('Error adding book:', err);
